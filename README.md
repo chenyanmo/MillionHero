@@ -23,7 +23,7 @@
 
 **notice**: 第一次使用汉王阿里云只需要0.01元／100条，所以如果没有了，可以自己注册阿里云账号购买（[汉王](https://market.aliyun.com/products/57124001/cmapi011523.html?spm=5176.10695662.1996646101.searchclickresult.2d006e393rEVI7#sku=yuncode552300000)）。百度的注册开发者后创建应用就可以看见自己的 key 和 secret 。
 
-## 分支说明
+## 分支说明（原作者项目中的分支）
 
 - master: 主要是 Android 手机使用，支持汉王和百度识别
 - knearby: 根据文本关联度思想，答案更加清晰，目前只支持百度识别
