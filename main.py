@@ -65,8 +65,8 @@ def main():
 
     # 直接打开百度搜索结果（针对原项目增加百度搜索结果）
     urL = "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=0&rsv_idx=1&tn=baidu&wd="+keyword+"&rsv_pq=c5275ac400006206&rsv_t=934bk5QLv0mlKbgJEPtAVMjYqGoybaZuUGqUdJ2Krw%2B2qr2LsF5TvhzzmcU&rqlang=cn&rsv_enter=1&rsv_sug3=4&rsv_sug1=2&rsv_sug7=100&rsv_sug2=0&inputT=2869&rsv_sug4=3213"
-    firefox_path = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-    webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(firefox_path), 1)
+    chrome_path = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+    webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(chrome_path), 1)
     webbrowser.get('chrome').open_new_tab(urL)
 
 

@@ -6,7 +6,8 @@ data_directory = "screenshots"
 default_answer_number = 2
 
 ### ocr config
-hanwan_appcode = "*******************"
+# hanwan_appcode = "***"
+hanwan_appcode = "***"
 
 ### baidu orc
 app_id = "10661627"
