@@ -12,12 +12,14 @@ from argparse import ArgumentParser
 import webbrowser
 from functools import partial
 
+from config import api_version
 from config import app_id
 from config import app_key
 from config import app_secret
 from config import data_directory
 from config import default_answer_number
 from config import hanwan_appcode
+from config import image_compress_level
 from config import prefer
 from config import summary_sentence_count
 from config import text_summary
@@ -26,8 +28,21 @@ from core.baiduzhidao import zhidao_search
 from core.ocr.baiduocr import get_text_from_image as bai_get_text
 from core.ocr.hanwanocr import get_text_from_image as han_get_text
 from core.textsummary import get_summary
+
 from selenium import webdriver
+# 默认使用汉王OCR
 get_text_from_image1 = partial(han_get_text, appcode=hanwan_appcode, timeout=3)
+
+
+# if prefer[0] == "baidu":
+#     get_text_from_image = partial(bai_get_text,
+#                                   app_id=app_id,
+#                                   app_key=app_key,
+#                                   app_secret=app_secret,
+#                                   api_version=api_version,
+#                                   timeout=5)
+# elif prefer[0] == "hanwang":
+#     get_text_from_image = partial(han_get_text, appcode=hanwan_appcode, timeout=3)
 
 
 def parse_args():
@@ -41,13 +56,24 @@ def parse_args():
     return parser.parse_args()
 
 
+def keyword_normalize(keyword):
+    for char, repl in [("“", ""), ("”", "")]:
+        keyword = keyword.replace(char, repl)
+
+    keyword = keyword.split(r"．")[-1]
+    keywords = keyword.split(" ")
+    keyword = "".join([e.strip("\r\n") for e in keywords if e])
+    return keyword
+
+
 def main():
     args = parse_args()
     timeout = args.timeout
 
     start = time.time()
     text_binary = analyze_current_screen_text(
-        directory=data_directory
+        directory=data_directory,
+        compress_level=image_compress_level[0]
     )
     keyword = get_text_from_image1(
         image_data=text_binary,
@@ -56,9 +82,7 @@ def main():
         print("text not recognize")
         return
 
-    keyword = keyword.split(r"．")[-1]
-    keywords = keyword.split(" ")
-    keyword = "".join([e.strip("\r\n") for e in keywords if e])
+    keyword = keyword_normalize(keyword)
     print("guess keyword: ", keyword)
 
 
